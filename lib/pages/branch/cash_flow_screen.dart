@@ -12,6 +12,7 @@ class CashFlowScreen extends StatefulWidget {
 }
 
 class _CashFlowScreen extends State<CashFlowScreen> {
+
   final List<Map<String, String>> cashFlows = [
     {
       'date': '01/01/2025',

@@ -139,9 +139,15 @@ Widget build(BuildContext context) {
                   // Hàng 1
                   Row(
                     children: [
+<<<<<<< HEAD
                       Expanded(child: _buildTextField(_orderDateController, 'Ngày đặt hàng')),
                       const SizedBox(width: 8),
                       Expanded(child: _buildTextField(_completionDateController, 'Ngày hoàn thành')),
+=======
+                      Expanded(child: _buildDateField(_orderDateController, 'Ngày đặt hàng')),
+                      const SizedBox(width: 8),
+                      Expanded(child: _buildDateField(_completionDateController, 'Ngày hoàn thành')),
+>>>>>>> 69d2aa41b46a5d173f8d5339d01cef83de807e88
                       const SizedBox(width: 8),
                       Expanded(child: _buildTextField(_poNumberController, 'Số PO')),
                       const SizedBox(width: 8),
@@ -163,7 +169,19 @@ Widget build(BuildContext context) {
                         Expanded(child: _buildTextField(_branchNameController, 'Chi nhánh')),
                         const SizedBox(width: 8),
                       ],
+<<<<<<< HEAD
                       Expanded(child: _buildTextField(_statusController, 'Trạng thái')),
+=======
+                      Expanded(
+                        child: _buildDropdownField(
+                          _statusController,
+                          'Trạng thái',
+                          widget.branch['type'] == 'kho tổng'
+                              ? ['Chờ xác nhận', 'Đã xác nhận', 'Từ chối', 'Đang giao', 'Hoàn thành']
+                              : ['Chờ xác nhận'], // Kho thường chỉ có 1 lựa chọn
+                        ),
+                      ),
+>>>>>>> 69d2aa41b46a5d173f8d5339d01cef83de807e88
                       const SizedBox(width: 8),
                       Expanded(child: _buildTextField(_totalAmountController, 'Tổng tiền')),
                     ],
@@ -428,6 +446,70 @@ void _addOrderRow() {
     );
   }
 
+<<<<<<< HEAD
+=======
+  Widget _buildDateField(TextEditingController controller, String hint) {
+  return GestureDetector(
+    onTap: () async {
+      final DateTime? picked = await showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime(2000),
+        lastDate: DateTime(2100),
+      );
+      if (picked != null) {
+        setState(() {
+          controller.text = '${picked.year}-${picked.month.toString().padLeft(2, '0')}-${picked.day.toString().padLeft(2, '0')}';
+        });
+      }
+    },
+    child: AbsorbPointer(
+      child: _buildTextField(controller, hint),
+    ),
+  );
+}
+
+Widget _buildDropdownField(TextEditingController controller, String label, List<String> options) {
+  String initialValue = options.contains(controller.text) ? controller.text : options.first;
+  controller.text = initialValue; // Gán giá trị mặc định nếu chưa có
+
+  return DropdownButtonFormField<String>(
+    value: controller.text,
+    decoration: InputDecoration(
+      isDense: true,
+      contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 12),
+      hintText: label,
+      hintStyle: const TextStyle(color: Colors.black54),
+      border: const OutlineInputBorder(
+        borderRadius: BorderRadius.all(Radius.circular(12)),
+        borderSide: BorderSide(width: 1.5),
+      ),
+      enabledBorder: const OutlineInputBorder(
+        borderRadius: BorderRadius.all(Radius.circular(12)),
+        borderSide: BorderSide(width: 1.5, color: Colors.grey),
+      ),
+      focusedBorder: const OutlineInputBorder(
+        borderRadius: BorderRadius.all(Radius.circular(12)),
+        borderSide: BorderSide(width: 2, color: Colors.blue),
+      ),
+    ),
+    items: options.map((status) {
+      return DropdownMenuItem<String>(
+        value: status,
+        child: Text(status),
+      );
+    }).toList(),
+    onChanged: (value) {
+      if (value != null) {
+        controller.text = value;
+      }
+    },
+  );
+}
+
+
+
+>>>>>>> 69d2aa41b46a5d173f8d5339d01cef83de807e88
   Widget _buildIconButton(IconData icon, VoidCallback onPressed) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 4),

@@ -25,6 +25,12 @@ class _OrderScreenState extends State<OrderScreen> {
   final _totalAmountController = TextEditingController();
   final _noteController = TextEditingController();
 
+<<<<<<< HEAD
+=======
+  Set<String> _expandedOrders = {};
+
+
+>>>>>>> 69d2aa41b46a5d173f8d5339d01cef83de807e88
   List<Map<String, dynamic>> orders = [
   {
     'id': '1',
@@ -163,6 +169,7 @@ void _loadOrders() async {
 Widget build(BuildContext context) {
   final screenSize = MediaQuery.of(context).size;
   return Scaffold(
+<<<<<<< HEAD
 
     // === Nút Thêm ===
     floatingActionButton: FloatingActionButton(
@@ -192,6 +199,51 @@ Widget build(BuildContext context) {
       },
       backgroundColor: Colors.blueAccent,
       child: const Icon(Icons.add),
+=======
+    // === Nút Thêm ===
+    floatingActionButton: Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        FloatingActionButton(
+          heroTag: 'delete',
+          onPressed: () {
+            // TODO: xử lý xoá ở đây
+          },
+          backgroundColor: Colors.redAccent,
+          child: const Icon(Icons.delete),
+        ),
+        const SizedBox(width: 12),
+        FloatingActionButton(
+          heroTag: 'add',
+          onPressed: () {
+            showDialog(
+              context: context,
+              builder: (context) {
+                return Dialog(
+                  insetPadding: const EdgeInsets.all(24),
+                  backgroundColor: Colors.transparent,
+                  child: UnconstrainedBox(
+                    constrainedAxis: Axis.horizontal,
+                    child: ConstrainedBox(
+                      constraints: BoxConstraints(
+                        maxWidth: MediaQuery.of(context).size.width * 2 / 3,
+                        maxHeight: MediaQuery.of(context).size.height * 0.8,
+                      ),
+                      child: OrderFormDialog(
+                        branch: widget.branch,
+                        userData: widget.userData,
+                      ),
+                    ),
+                  ),
+                );
+              },
+            );
+          },
+          backgroundColor: Colors.blueAccent,
+          child: const Icon(Icons.add),
+        ),
+      ],
+>>>>>>> 69d2aa41b46a5d173f8d5339d01cef83de807e88
     ),
 
     // === Nền và nội dung chính nếu có thể bổ sung sau ===
@@ -228,11 +280,21 @@ Widget _buildOrderTable(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+<<<<<<< HEAD
         Table(
           columnWidths: const {
             0: FlexColumnWidth(2),
             1: FlexColumnWidth(2),
             2: FlexColumnWidth(2),
+=======
+        // Tiêu đề bảng
+        Table(
+          columnWidths: const {
+            0: FlexColumnWidth(0.5), // Dấu cộng
+            1: FlexColumnWidth(2),
+            2: FlexColumnWidth(2),
+            3: FlexColumnWidth(2),
+>>>>>>> 69d2aa41b46a5d173f8d5339d01cef83de807e88
           },
           border: TableBorder.all(
             color: Colors.black26,
@@ -241,10 +303,16 @@ Widget _buildOrderTable(BuildContext context) {
           ),
           children: [
             TableRow(
+<<<<<<< HEAD
               decoration: const BoxDecoration(
                 color: Color(0xFFCCE5FF),
               ),
               children: [
+=======
+              decoration: const BoxDecoration(color: Color(0xFFCCE5FF)),
+              children: [
+                _buildTableHeaderCell(''),
+>>>>>>> 69d2aa41b46a5d173f8d5339d01cef83de807e88
                 _buildTableHeaderCell('Số PO'),
                 _buildTableHeaderCell('Ngày đặt'),
                 _buildTableHeaderCell('Trạng thái'),
@@ -252,6 +320,7 @@ Widget _buildOrderTable(BuildContext context) {
             ),
           ],
         ),
+<<<<<<< HEAD
         // Sử dụng 'order' thay vì 'orders[index]'
         ...orders.map((order) {
           return GestureDetector(
@@ -303,6 +372,101 @@ Widget _buildOrderTable(BuildContext context) {
                 ),
               ],
             ),
+=======
+
+        // Danh sách đơn hàng
+        ...orders.map((order) {
+          final orderId = order['id'].toString();
+          final isExpanded = _expandedOrders.contains(orderId);
+
+          return Column(
+            children: [
+              Table(
+                columnWidths: const {
+                  0: FlexColumnWidth(0.5),
+                  1: FlexColumnWidth(2),
+                  2: FlexColumnWidth(2),
+                  3: FlexColumnWidth(2),
+                },
+                border: TableBorder.symmetric(
+                  inside: BorderSide(color: Colors.black12, width: 0.5),
+                  outside: BorderSide.none,
+                ),
+                children: [
+                  TableRow(
+                    decoration: const BoxDecoration(color: Colors.white),
+                    children: [
+                      IconButton(
+                        icon: Icon(isExpanded ? Icons.remove : Icons.add),
+                        onPressed: () {
+                          setState(() {
+                            if (isExpanded) {
+                              _expandedOrders.remove(orderId);
+                            } else {
+                              _expandedOrders.add(orderId);
+                            }
+                          });
+                        },
+                      ),
+                      GestureDetector(
+                        onTap: () => _openOrderDialog(order),
+                        child: _buildTableCell(order['po_number'] ?? ''),
+                      ),
+                      GestureDetector(
+                        onTap: () => _openOrderDialog(order),
+                        child: _buildTableCell(order['order_date'] ?? ''),
+                      ),
+                      GestureDetector(
+                        onTap: () => _openOrderDialog(order),
+                        child: _buildTableCell(order['status'] ?? ''),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+
+              // Bảng hàng hóa nếu mở rộng
+              if (isExpanded)
+                Padding(
+                  padding: const EdgeInsets.only(left: 24.0, bottom: 8.0),
+                  child: Table(
+                    columnWidths: const {
+                      0: FlexColumnWidth(2),
+                      1: FlexColumnWidth(2),
+                      2: FlexColumnWidth(1),
+                      3: FlexColumnWidth(1),
+                      4: FlexColumnWidth(2),
+                    },
+                    border: TableBorder.all(color: Colors.grey.shade300),
+                    children: [
+                      // Tiêu đề hàng hóa
+                      TableRow(
+                        decoration: const BoxDecoration(color: Color(0xFFD6F0FF)),
+                        children: [
+                          _buildTableHeaderCell('Tên sản phẩm'),
+                          _buildTableHeaderCell('Nhà cung cấp'),
+                          _buildTableHeaderCell('SL'),
+                          _buildTableHeaderCell('Đơn giá'),
+                          _buildTableHeaderCell('Thành tiền'),
+                        ],
+                      ),
+                      ...List.generate((order['products'] as List).length, (index) {
+                        final product = order['products'][index];
+                        return TableRow(
+                          children: [
+                            _buildTableCell(product['name']),
+                            _buildTableCell(product['supplier']),
+                            _buildTableCell(product['quantity']),
+                            _buildTableCell(product['unit_price']),
+                            _buildTableCell(product['total_price']),
+                          ],
+                        );
+                      }),
+                    ],
+                  ),
+                ),
+            ],
+>>>>>>> 69d2aa41b46a5d173f8d5339d01cef83de807e88
           );
         }).toList(),
       ],
@@ -310,6 +474,35 @@ Widget _buildOrderTable(BuildContext context) {
   );
 }
 
+<<<<<<< HEAD
+=======
+void _openOrderDialog(Map<String, dynamic> order) {
+  showDialog(
+    context: context,
+    builder: (context) {
+      return Dialog(
+        insetPadding: const EdgeInsets.all(24),
+        backgroundColor: Colors.transparent,
+        child: UnconstrainedBox(
+          constrainedAxis: Axis.horizontal,
+          child: ConstrainedBox(
+            constraints: BoxConstraints(
+              maxWidth: MediaQuery.of(context).size.width * 2 / 3,
+              maxHeight: MediaQuery.of(context).size.height * 0.8,
+            ),
+            child: OrderFormDialog(
+              branch: widget.branch,
+              userData: widget.userData,
+              order: order,
+            ),
+          ),
+        ),
+      );
+    },
+  );
+}
+
+>>>>>>> 69d2aa41b46a5d173f8d5339d01cef83de807e88
 
 
 Widget _buildTableHeaderCell(String text) {

@@ -9,7 +9,11 @@ import 'package:spa_app/pages/branch/structure_type_screen.dart';
 import 'package:spa_app/pages/branch/timekeeping_screen.dart';
 import 'package:spa_app/pages/branch/income_structure.dart';
 import 'package:spa_app/pages/branch/payroll_screen.dart';
+<<<<<<< HEAD
 import 'package:spa_app/pages/branch/entity_screen.dart';
+=======
+import 'package:spa_app/pages/branch/doi_tuong.dart';
+>>>>>>> 69d2aa41b46a5d173f8d5339d01cef83de807e88
 import 'package:spa_app/pages/branch/combo_cost_screen.dart';
 import 'package:spa_app/pages/branch/warehouse_screen.dart';
 import 'package:spa_app/pages/branch/customer_debt_screen.dart';
