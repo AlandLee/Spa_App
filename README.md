@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # spa_app
 
 A new Flutter project.
@@ -14,3 +15,7 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+=======
+# Spa_App
+đây là app spa
+>>>>>>> 8d12b8c81d659758d6a61f7ceeecec9c1c9aa6ce
