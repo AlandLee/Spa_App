@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "575200019418",
+    "project_id": "spa-app-e7bab",
+    "storage_bucket": "spa-app-e7bab.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:575200019418:android:d264df42f97bd8b14036e3",
+        "android_client_info": {
+          "package_name": "com.example.spa_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCw2Y1b3MkhbeWTeqblqElKNbJYctR7200"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
